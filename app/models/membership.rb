@@ -37,5 +37,12 @@ class Membership < ApplicationRecord
         partial: "groups/index_list",
         locals: { groups: groups }
       )
+
+      broadcast_replace_to(
+        [ user, :groups ],
+        target: "user_groups_sidebar",
+        partial: "groups/sidebar_list",
+        locals: { groups: groups }
+      )
     end
 end

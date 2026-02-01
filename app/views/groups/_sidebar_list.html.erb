@@ -1,0 +1,10 @@
+<% if groups.any? %>
+  <% groups.each do |group| %>
+    <% active = defined?(current_group_id) && current_group_id == group.id %>
+    <%= link_to group_path(group), class: "block rounded-2xl px-3 py-2 text-sm #{active ? 'bg-slate-800 text-white' : 'text-slate-300 hover:bg-slate-800/60'}" do %>
+      # <%= group.name %>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="rounded-2xl border border-dashed border-slate-800 px-3 py-4 text-center text-xs text-slate-400">No groups yet.</div>
+<% end %>
