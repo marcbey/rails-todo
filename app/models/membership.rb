@@ -7,6 +7,7 @@ class Membership < ApplicationRecord
   validates :user_id, uniqueness: { scope: :group_id }
 
   after_commit :broadcast_members, on: [ :create, :destroy ]
+  after_commit :broadcast_user_groups, on: [ :create, :destroy ]
 
   private
     def broadcast_members
@@ -24,6 +25,17 @@ class Membership < ApplicationRecord
         target: "member_count",
         partial: "memberships/count",
         locals: { count: memberships.size }
+      )
+    end
+
+    def broadcast_user_groups
+      groups = user.groups.order(:name)
+
+      broadcast_replace_to(
+        [ user, :groups ],
+        target: "user_groups_index",
+        partial: "groups/index_list",
+        locals: { groups: groups }
       )
     end
 end
