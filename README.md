@@ -34,6 +34,7 @@ bin/rails db:setup
 
 ```bash
 bin/rails test
+bin/rails spec
 ```
 
 ## Lint and Security

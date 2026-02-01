@@ -23,6 +23,7 @@ bin/dev
 
 ```bash
 bin/rails test
+bin/rails spec
 ```
 
 ## Lint and Security
