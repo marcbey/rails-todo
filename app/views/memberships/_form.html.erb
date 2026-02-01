@@ -2,15 +2,24 @@
   <div data-controller="invite-autocomplete"
        data-invite-autocomplete-url-value="<%= autocomplete_users_path %>">
     <%= label_tag :email_address, "Email", class: "text-xs font-semibold uppercase tracking-wide text-slate-400" %>
-    <%= text_field_tag :email_address, nil,
-      autocomplete: "email",
-      inputmode: "email",
-      spellcheck: "false",
-      data: {
-        action: "input->invite-autocomplete#suggest",
-        invite_autocomplete_target: "input"
-      },
-      class: "mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 focus:border-slate-500 focus:outline-none" %>
+    <div class="relative mt-2">
+      <%= text_field_tag :email_address, nil,
+        autocomplete: "email",
+        inputmode: "email",
+        spellcheck: "false",
+        role: "combobox",
+        aria: { autocomplete: "list", expanded: "false", controls: "invite-autocomplete-results" },
+        data: {
+          action: "input->invite-autocomplete#suggest keydown->invite-autocomplete#navigate focus->invite-autocomplete#show blur->invite-autocomplete#hide",
+          invite_autocomplete_target: "input"
+        },
+        class: "w-full rounded-2xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 focus:border-slate-500 focus:outline-none" %>
+      <div data-invite-autocomplete-target="results"
+           id="invite-autocomplete-results"
+           role="listbox"
+           class="absolute z-10 mt-2 hidden w-full overflow-hidden rounded-2xl border border-slate-800 bg-slate-950/95 shadow-lg">
+      </div>
+    </div>
   </div>
   <% if member_error.present? %>
     <p class="text-xs text-rose-400"><%= member_error %></p>
