@@ -1,7 +1,11 @@
 <%= form_with url: group_memberships_path(group), class: "mt-2 flex flex-col gap-2", data: { turbo_stream: true } do |form| %>
   <div>
     <%= label_tag :email_address, "Email", class: "text-xs font-semibold uppercase tracking-wide text-slate-400" %>
-    <%= text_field_tag :email_address, nil, class: "mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 focus:border-slate-500 focus:outline-none" %>
+    <%= text_field_tag :email_address, nil,
+      autocomplete: "email",
+      inputmode: "email",
+      spellcheck: "false",
+      class: "mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 focus:border-slate-500 focus:outline-none" %>
   </div>
   <% if member_error.present? %>
     <p class="text-xs text-rose-400"><%= member_error %></p>
