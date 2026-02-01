@@ -2,6 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
   static values = { url: String }
+  static targets = ["input"]
 
   connect() {
     this.abortController = null
@@ -12,8 +13,9 @@ export default class extends Controller {
     this.abortController?.abort()
   }
 
-  suggest(event) {
-    const input = event.target
+  suggest() {
+    if (!this.hasInputTarget) return
+    const input = this.inputTarget
     const query = input.value.trim().toLowerCase()
 
     if (event.inputType === "deleteContentBackward") {
@@ -41,11 +43,13 @@ export default class extends Controller {
         const match = emails[0]
         if (!match || !match.toLowerCase().startsWith(query)) return
 
-        // Only auto-complete if cursor is at end.
-        if (input.selectionStart !== input.selectionEnd || input.selectionEnd !== input.value.length) return
-
         input.value = match
-        input.setSelectionRange(query.length, match.length)
+        try {
+          // Highlight the suggested portion for easy overwrite.
+          input.setSelectionRange(query.length, match.length)
+        } catch {
+          // Some browsers disallow selection APIs on certain input types.
+        }
       })
       .catch((error) => {
         if (error.name !== "AbortError") throw error

@@ -6,7 +6,10 @@
       autocomplete: "email",
       inputmode: "email",
       spellcheck: "false",
-      data: { action: "input->invite-autocomplete#suggest" },
+      data: {
+        action: "input->invite-autocomplete#suggest",
+        invite_autocomplete_target: "input"
+      },
       class: "mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 focus:border-slate-500 focus:outline-none" %>
   </div>
   <% if member_error.present? %>
