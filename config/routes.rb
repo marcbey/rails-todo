@@ -1,7 +1,11 @@
 Rails.application.routes.draw do
   resource :session
   resources :passwords, param: :token
-  resources :users, only: [ :new, :create ]
+  resources :users, only: [ :new, :create ] do
+    collection do
+      get :autocomplete
+    end
+  end
   resources :groups, only: [ :index, :show, :create ] do
     resources :messages, only: [ :create ]
     resources :memberships, only: [ :create, :destroy ]
