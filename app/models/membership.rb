@@ -13,14 +13,14 @@ class Membership < ApplicationRecord
       memberships = group.memberships.includes(:user).order(:created_at)
 
       broadcast_replace_to(
-        [group, :members],
+        [ group, :members ],
         target: "members_list",
         partial: "memberships/list",
         locals: { group: group, memberships: memberships }
       )
 
       broadcast_update_to(
-        [group, :members],
+        [ group, :members ],
         target: "member_count",
         partial: "memberships/count",
         locals: { count: memberships.size }
