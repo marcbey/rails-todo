@@ -16,4 +16,6 @@
 /.kamal/secrets
 /.ruby-lsp/
 /tmp/pids/*.pid
-/app/assets/builds/*.css
+/app/assets/builds/*
+!/app/assets/builds/
+!/app/assets/builds/tailwind.css
