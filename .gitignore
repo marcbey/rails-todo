@@ -15,3 +15,5 @@
 /config/master.key
 /.kamal/secrets
 /.ruby-lsp/
+/tmp/pids/*.pid
+/app/assets/builds/*.css
