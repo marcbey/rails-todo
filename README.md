@@ -1,24 +1,51 @@
-# README
+# Rails Todo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Group-based messaging app with user accounts, memberships, and message threads.
+Users can create groups, join them, and post messages with optional file
+attachments. Includes email-based password reset and session management.
 
-Things you may want to cover:
+## Requirements
 
-* Ruby version
+* Ruby `4.0.1` (see `.ruby-version`)
+* SQLite3
+* Bundler (`gem install bundler`)
 
-* System dependencies
+## Setup
 
-* Configuration
+```bash
+bin/setup
+```
 
-* Database creation
+## Run the app
 
-* Database initialization
+```bash
+bin/dev
+```
 
-* How to run the test suite
+Then visit http://localhost:3000.
 
-* Services (job queues, cache servers, search engines, etc.)
+## Database
 
-* Deployment instructions
+```bash
+bin/rails db:setup
+```
 
-* ...
+## Tests
+
+```bash
+bin/rails test
+```
+
+## Lint and Security
+
+```bash
+bin/rubocop
+bin/bundler-audit
+bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error
+```
+
+## CI
+
+```bash
+bin/ci
+```
