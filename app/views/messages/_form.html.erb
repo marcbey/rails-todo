@@ -1,0 +1,21 @@
+<%= form_with model: [group, message], class: "space-y-3", data: { turbo_stream: true } do |form| %>
+  <% if message.errors.any? %>
+    <div class="rounded-2xl border border-rose-400/40 bg-rose-500/10 px-4 py-3 text-xs text-rose-200">
+      <%= message.errors.full_messages.to_sentence %>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :body, "Message", class: "text-xs font-semibold uppercase tracking-wide text-slate-400" %>
+    <%= form.text_area :body, rows: 4, class: "mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 focus:border-slate-500 focus:outline-none" %>
+  </div>
+
+  <div>
+    <%= form.label :files, "Attach files", class: "text-xs font-semibold uppercase tracking-wide text-slate-400" %>
+    <%= form.file_field :files, multiple: true, direct_upload: true, class: "mt-2 block w-full text-xs text-slate-300" %>
+  </div>
+
+  <div class="flex justify-end">
+    <%= form.submit "Send", class: "rounded-2xl bg-indigo-400 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-indigo-300" %>
+  </div>
+<% end %>

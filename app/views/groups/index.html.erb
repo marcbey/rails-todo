@@ -1,0 +1,40 @@
+<% content_for :title, "Groups" %>
+
+<div class="grid gap-6 lg:grid-cols-[280px_1fr]">
+  <section class="rounded-3xl border border-slate-800 bg-slate-900/70 p-6 shadow-lg">
+    <h2 class="text-lg font-semibold">Start a group</h2>
+    <p class="mt-1 text-sm text-slate-400">Create a space for your team to chat and share files.</p>
+
+    <%= form_with model: @group, class: "mt-4 space-y-3" do |form| %>
+      <div>
+        <%= form.label :name, "Group name", class: "text-xs font-semibold uppercase tracking-wide text-slate-400" %>
+        <%= form.text_field :name, class: "mt-2 w-full rounded-2xl border border-slate-700 bg-slate-950/60 px-3 py-2 text-sm text-slate-100 focus:border-slate-500 focus:outline-none" %>
+        <% if @group.errors[:name].any? %>
+          <p class="mt-2 text-xs text-rose-400"><%= @group.errors[:name].first %></p>
+        <% end %>
+      </div>
+      <%= form.submit "Create group", class: "w-full rounded-2xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-white" %>
+    <% end %>
+  </section>
+
+  <section class="rounded-3xl border border-slate-800 bg-slate-900/40 p-6">
+    <div class="flex items-center justify-between">
+      <h2 class="text-lg font-semibold">Your groups</h2>
+      <span class="text-xs text-slate-400"><%= pluralize(@groups.count, "group") %></span>
+    </div>
+    <div class="mt-4 space-y-3">
+      <% if @groups.any? %>
+        <% @groups.each do |group| %>
+          <%= link_to group_path(group), class: "flex items-center justify-between rounded-2xl border border-slate-800/80 bg-slate-950/60 px-4 py-3 text-sm hover:border-slate-600 hover:text-white" do %>
+            <span class="font-medium"><%= group.name %></span>
+            <span class="text-xs text-slate-500">Open</span>
+          <% end %>
+        <% end %>
+      <% else %>
+        <div class="rounded-2xl border border-dashed border-slate-700 px-4 py-6 text-center text-sm text-slate-400">
+          You are not in any groups yet.
+        </div>
+      <% end %>
+    </div>
+  </section>
+</div>
