@@ -18,23 +18,15 @@
   </section>
 
   <section class="rounded-3xl border border-slate-800 bg-slate-900/40 p-6">
+    <%= turbo_stream_from [current_user, :groups] %>
     <div class="flex items-center justify-between">
       <h2 class="text-lg font-semibold">Your groups</h2>
       <span class="text-xs text-slate-400"><%= pluralize(@groups.count, "group") %></span>
     </div>
     <div class="mt-4 space-y-3">
-      <% if @groups.any? %>
-        <% @groups.each do |group| %>
-          <%= link_to group_path(group), class: "flex items-center justify-between rounded-2xl border border-slate-800/80 bg-slate-950/60 px-4 py-3 text-sm hover:border-slate-600 hover:text-white" do %>
-            <span class="font-medium"><%= group.name %></span>
-            <span class="text-xs text-slate-500">Open</span>
-          <% end %>
-        <% end %>
-      <% else %>
-        <div class="rounded-2xl border border-dashed border-slate-700 px-4 py-6 text-center text-sm text-slate-400">
-          You are not in any groups yet.
-        </div>
-      <% end %>
+      <div id="user_groups_index">
+        <%= render "groups/index_list", groups: @groups %>
+      </div>
     </div>
   </section>
 </div>
